@@ -7,7 +7,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 // Requiring all models
-// var db = require("./models");
+var db = require("./models");
 
 
 
