@@ -31,8 +31,8 @@ mongoose.connect("mongodb://localhost/hockeyDB", {
 });
 
 // Routes
-// Scraping r/hockey for hockey news
-app.get("/scrape", function (req, res){
+// Scraping /r/hockey for hockey news
+app.get("/", function (req, res){
     axios.get("https://www.reddit.com/r/hockey/").then(function(response){
         var $ = cheerio.load(response.data);
 

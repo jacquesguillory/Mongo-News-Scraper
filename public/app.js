@@ -1,4 +1,3 @@
-import { lchmod } from "fs";
 
 // get articles as jason
 $.getJSON("/articles", function (data){
@@ -20,7 +19,7 @@ $(document).on("click", "p", function(){
         // making the new note form
         $("#notes").append("<h2>" + data.title + "</h2>");
         $("#notes").append("<input id='titleinput' name='title'>");
-        $("#notes").append("<textarea id='bodyinput' name='body'></textarea");
+        $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
         $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save This Here Note Eh</button>");
 
         // if note already exists, show it
