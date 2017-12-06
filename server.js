@@ -24,11 +24,13 @@ app.use(express.static("public"));
 
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/hockeyDB";
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/hockeyDB", {
+mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
+
 
 // Routes
 // Scraping /r/hockey for hockey news
