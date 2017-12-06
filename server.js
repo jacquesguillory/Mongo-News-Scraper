@@ -32,12 +32,14 @@ mongoose.connect("mongodb://localhost/hockeyDB", {
 
 // Routes
 // Scraping /r/hockey for hockey news
-app.get("/", function (req, res){
-    axios.get("https://www.reddit.com/r/hockey/").then(function(response){
+app.get("/scrape", function (req, res){
+    axios.get("https://www.reddit.com/r/fantasyfootball/").then(function(response){
+        console.log(response);
         var $ = cheerio.load(response.data);
 
+        let completeCount = 0;
+        const total = $("p.title").length;
         $("p.title").each(function(i, element){
-
             var result = {};
 
             result.title = $(this).find("a").text();
@@ -45,7 +47,10 @@ app.get("/", function (req, res){
         
             // Creating new article
             db.Article.create(result).then(function(dbArticle){
-                res.send("Scrape est fini");
+                completeCount++;
+                if (completeCount === total) {
+                    res.redirect("/");
+                }
             }).catch(function(err){
                 res.json(err);
             });
@@ -57,7 +62,7 @@ app.get("/", function (req, res){
 
 app.get("/articles", function(req, res){
     db.Article.find({}).then(function(dbArticle){
-        res.json(dbArticle);
+        res.send(dbArticle);
     }).catch(function(err){
         res.json(err);
     });
